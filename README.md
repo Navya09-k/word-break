@@ -1,2 +1,13 @@
-# word-break
-Uses Dynamic Programming. dp[i] is true if prefix s[0...i-1] can be segmented. We iterate through each index i and check all split points j. If dp[j] is true and the substring from j to i exists in the word dictionary, dp[i] becomes true.
+class Solution:
+    def wordBreak(self, s: str, wordDict: list[str]) -> bool:
+        word_set = set(wordDict)
+        n = len(s)
+        dp = [False] * (n + 1)
+        dp[0] = True
+        
+        for i in range(1, n + 1):
+            for j in range(i):
+                if dp[j] and s[j:i] in word_set:
+                    dp[i] = True
+                    break
+        return dp[n] 
